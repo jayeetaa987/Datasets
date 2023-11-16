@@ -1,0 +1,789 @@
+Page # 1
+Preprints are preliminary reports that have not undergone peer review.
+
+2s Research Sq uare They should not be considered conclusive, used to inform clinical practice,
+
+or referenced by the media as validated information.
+
+Development of Word Count Data Corpus for Hindi
+and Marathi Literature
+
+Vivek Belhekar (SJ vivek@psychology.mu.ac.in )
+University of Mumbai
+
+Radhika Bhargava
+University of Mumbai
+
+Short Report
+
+Keywords: word corpus, Hindi, Marathi, decade-wise data, n-gram, text mining
+Posted Date: February 22nd, 2023
+
+DOI: https://doi.org/10.21203/rs.3.rs-2575520/v1
+
+License: © @® This work is licensed under a Creative Commons Attribution 4.0 International License. Read
+Full License
+
+Page 1/15
+
+
+Page # 2
+Abstract
+
+India has a huge diversity of languages, and Hindi and Marathi are the most spoken languages in the
+northern and western parts of India. Hindi and Marathi have more than 528 million and 83 million speakers,
+respectively. The present paper describes the development of the Hindi Word Corpus (Hindi WordCorp) and
+the Marathi Word Corpus (Marathi WordCorp), reporting the frequency of single words (1-gram) used in
+written texts of the respective languages using the bag-of-words model (BoW). The word frequencies are
+provided for eleven decades, ranging from 1920 to 2020. Word frequency was separately computed for
+undated texts and texts published before 1920. These texts include books (fiction, non-fiction, history,
+autobiographies, etc.) and magazines. Academic and reference books were not used. Six hundred forty texts
+were used for the Hindi WordCorp, and 712 texts were used for the Marathi WordCorp. An analysis was
+employed to check whether the texts used were enough to stabilize the rank-order of the total frequencies of
+the words. Zipf’s and Heaps’ law coefficients were also estimated. Researchers in various areas like
+linguistics, social sciences, language sciences, text mining, machine learning analysis, etc., can use the
+dataset to answer research questions about language and culture. Some demonstrative examples are
+provided for using the datasets in the two languages. The dataset is made available on an open data
+repository. The paper is an account of dataset creation for Hindi and Marathi WordCorp. Hence, no empirical
+results or conclusions are made based on the data created. A web app named Indian Languages Word
+Corpus (ILWC) has been developed for users.
+
+Introduction
+
+The use of textual data for analysis is rapidly growing, given the enormous amount of available textual data
+and rapid growth in textual data analytics. A prior pre-processing is essential for the use of textual data for
+analysis. Hotho, Niirnberger, and Paa (2005) define text-mining from three perspectives: information
+extraction, text data mining, and Knowledge Discovery in Databases (KDD). Information extraction extracts
+textual data from the corpus that computers cannot otherwise analyze. Information extraction helps create
+databases that can be used further for text data mining and KDD exercises.
+
+Useful text corpora depict textual data use of texts, sentences, or words from written or spoken language over
+time or systematically categorizes them. Brown University Standard Corpus of Present-Day American English
+or Brown Corpus (Francis & Kucera, 1979) pioneered the field of corpus linguistics and scientifically studied
+the frequency and distribution of word categories in everyday language usage. Subsequently developed
+common text corpora of English include Corpus of Contemporary American English (COCA; Davies, 2008),
+British National Corpus (BNC; BNC Consortium, 2007), Santa Barbara corpus of Spoken American English
+(DuBois, Chafe, Meyer & Thompson, Englebretson & Martey; 2000-2005), International Corpus of English
+(ICE; Greenbaum & Nelson, 1996), and Kolhapur Corpus of Indian English (Shashtri, 1986). Topic-specific
+corpora have been created in different languages. They include return migration in Austrian (Oberbichler and
+Pfanzelter, 2022), parliamentary debates in Portuguese (Almeida, Marques-Pita, & Gongalves-Sa, 2021), pop
+lyrics in American and British English (Werner, 2012). Hodge, Sekine, Schembri, and Johnston (2019)
+developed a multi-modal, bilingual corpus for signed and ambient spoken language for Auslan and
+Australian languages. More recently, Birmingham Blog Corpus (BBC; Research and Development Unit for
+
+Page 2/15
+
+
+Page # 3
+English Studies at Birmingham City University, 2010) and Cambridge and Nottingham e-language Corpus
+(CANELC; Knight, Adolphs & Carter, 2014) have developed e-language corpora, which take data from web,
+SMS, messages, blogs, or Twitter.
+
+A more recent and sophisticated system that reports frequencies of n-grams over the years is the Google N-
+gram Viewer (Michel et al., 2011), which has been developed for English and its variations (e.g., British
+English, American English, English fiction, etc.), Chinese (simplified), French, German, Hebrew, Italian,
+Russian, and Spanish. Researchers have benefitted from using such databases in their work (Caruana-
+Galizia, 2016; Juola, 2013; Younes & Reips, 2018; Zeng & Greenfield, 2015). The known shortcomings of
+Google N-gram Viewer include lack of metadata (Koplenig, 2017), inaccuracy and errors in Optical Character
+Recognition (OCR; Younes & Reips, 2019), excessive use of academic or scientific books (Pechenick,
+Danforth & Dodds, 2015), and inclusion of only print media (Pettit, 2016), etc.
+
+Further, Google N-gram viewer does not include any of the Indian languages. India has a huge diversity of
+languages. The eighth schedule of the constitution of India includes 22 official languages, and the
+Bharatavani project lists 104 Indian languages (Central Institute of Indian Languages, CIIL, 2022). The 2011
+Census of India listed 1369 mother tongues (Singh & Nakkerar, 2022), of which 234 were identifiable, and
+121 languages were spoken by more than 10,000 people each. The census data reports that Hindi has
+528,347,193 speakers, and Marathi has 83,026,680 speakers in India (Singh & Nakkerar, 2022). Hindi has the
+fourth highest native speakers worldwide, while Marathi ranks 11th. Both Hindi and Marathi are Indo-Aryan
+languages that use Devanagari as a script. Supplementary Material 1 provides detailed information on the
+two languages.
+
+Moreover, there is no corpus dataset in the Indian languages that indicates the usage frequency of words or
+phrases. Such datasets are useful for further research studies in linguistics, psychology, sociology, or any
+field posing a research question on language or culture. The present paper employs the bag-of-words model
+(BoW) to develop word corpora in Hindi and Marathi using written text-based data like books and magazines.
+The following sections describe the method employed, demonstrative applications of the dataset, and the
+development of an accompanying web app.
+
+Data Collection Method
+
+This section describes the data sources, the procedure for developing the dataset, the validation of the
+dataset, and ethical considerations.
+
+Data Source
+
+Written texts in Hindi and Marathi languages were used to develop the dataset. The written texts included
+books and magazines. The texts were of various genres, including fiction, novels, non-fiction, fantasy-fiction,
+folklore, autobiographies, biographies, children's books, translated books, history, and mythology. The
+metadata has 640 texts in Hindi and 712 texts in Marathi. For this purpose, open-source digital copies of
+texts were acquired or digitalized. These texts were converted to a Portable Document Format (PDF). Texts
+
+Page 3/15
+
+
+Page # 4
+were segregated by the decade of publication of the first edition. Due to fewer available texts, all books
+published before 1920 were put in a pre-1920 category. Children's story books having materials from different
+decades, texts without publication year (of the first edition), or illegible publication date were categorized as
+"undated" texts. The total number of texts used in the Hindi language in every decade from pre-1920 to 2020
+were 7, 8, 18, 23, 45, 27, 33, 39, 30, 82, 196, and 48, respectively. The total number of texts used in the Marathi
+language in every decade from pre-1920 to 2020 was 19, 12, 38, 54, 35, 15, 18, 36, 16, 28, 324, and 29,
+respectively. There were 84 and 88 undated texts in Hindi and Marathi, respectively.
+
+Procedure
+
+Optical Character Recognition (OCR) was carried out on the texts using the 'tesseract' (Ooms, 2022) package
+(version 5.1.0) available in R Software (R Core Team, 2022; RStudio Team, 2022). Less legible texts were
+excluded in the initial stage. OCR proceeded with converting every page of the texts into images (.png files)
+using the 'pdftools' (Ooms, 2022) R package (version 3.3.0). Then the OCR was carried out for each image,
+and the text was converted into a standard text document (.txt files). A term document matrix (tdm) was
+created using these text documents, separately for Hindi and Marathi. The tdm was made using the ‘tm’
+(Feinerer, Hornik & Meyer, 2008; Feinerer & Hornik, 2020) package (version 0.7.8) in R. Atdm has terms on the
+rows, documents (in this case, texts) on the columns, and the total word count in the cells. We restrict the
+present dataset to how frequently a 1-gram appears in a decade. A 1-gram is a string of characters that are
+uninterrupted by whitespace. In the present data, a 1-gram includes complete words, numbers, incomplete
+words, and words that OCR has misread. For every word, the word count of texts belonging to every decade
+was added to obtain the word count of the respective decade. A total of 1024258 and 2111786 unique words
+were extracted in Hindi and Marathi, respectively. The BoW model-based analysis was carried out in the R
+software, and the R codes are provided in the OSF online data repository. Supplementary Material 2 details
+the number of words and texts in every decade for every genre.
+
+Sometimes, OCR misreads the text. For example, the letter" "in Marathi, or" "in Hindi and Marathi, can be
+, etc. Further, diacritical marks in letters like" "and" ", and consonant clusters like
+
+" are not read efficiently. Such inaccuracies may affect the frequencies of the words with some letters.
+
+misrecognized as
+Supplementary Material 3 provides details on the typical errors with some examples. The present dataset is
+provided with these misread words to allow researchers to combine and collapse frequencies of correctly and
+incorrectly recognized words. Supplementary Material 4 contains additional guidelines about how
+researchers could combine frequencies in the dataset in case of suffixes or words with alternate spellings.
+
+The total volume of words in every decade was uneven; hence, taking the total word count of the decade as
+an indicator of the usage frequency of the concerned word would be inappropriate for inter-decade
+comparison. Hence, the adjusted frequency was obtained by dividing the count of every word in a given
+decade by the total number of words in the corpus for that decade, similar to Michel et al. (2011). The
+
+adjusted frequency is computed using fi, = a
+
+ 
+
+where, fi, is an adjusted frequency (f) of a word /ina
+
+decade d, SS aq is the total appearance of a word /in a decade d, and ng, is total words in decade d. A word's
+adjusted frequency (f) is adjusted for the total number of words in a decade. Adjusted frequencies are a
+
+Page 4/15
+
+
+Page # 5
+helpful indicator for comparison across decades. For example, in the decade 2000, the word " "[insaan]
+in Hindi (meaning "person/human’) has a frequency of 169. The corpus contains 1,282,806 total words in the
+decade the 2000s, and the adjusted frequency of the word " "[insaan] is 0.00013. The Hindi and Marathi
+datasets are available on the OSF online data repository.
+
+Descriptive Analysis
+Analyzing the Stability of the Rank-Order of the Words
+
+In order to understand whether the number of texts is sufficient, we computed correlations between two
+random sets of texts. The frequency distribution of the word count is generally positively skewed. Zipf's law
+and Heaps' law also show the same (Zizka, Dafena, & Svoboda, 2019). Hence, words with greater frequency
+than the average total word count were considered for this analysis. In Hindi, the average total word count
+was 17.74; in Marathi, the average total word count was 8.87. The steps followed are given below:
+
+Step 1: The tdm for all documents was randomly vertically divided into two halves (Sets), creating two tdm's
+with identical terms in each row and different documents in columns, called Set1 and Set2. For example,
+Marathi has 712 texts. The tdm for Marathi has 132970 (terms) x 712 (documents) dimensions. It is
+randomly divided into Two-Sets of tdm’'s of the size 132970 (terms) x 356 (documents) each.
+
+Step 2: Ten columns were drawn randomly from each Set, and the total frequency (TF) for each term was
+computed for Set1 and Set2. Spearman's rank-order correlation between TF Set1 and TF Set2 was obtained.
+For example, Marathi tdm's of 132970 x 10 was randomly drawn from each Set. The total frequency was
+obtained for each term in both sets. Spearman's rank-order correlation was calculated between two sets.
+Since these are randomly drawn columns, each randomization will have a different correlation coefficient. In
+one of the trials, the correlation was 0.36.
+
+Step 3: Ten more columns were randomly added to Step 2 from both sets, and Spearman's rank-order
+correlation was computed for TF Set1 and TF Set2. Hence, the two Marathi tdm's became of 132970 x 20
+size. In one such trial, the correlation between the total frequencies of each Set was 0.37.
+
+Step 4: This iteration continued until all columns were exhausted. For example, the tdm's for Marathi became
+132970 x 30, 132970 x 40, ..., 132970 x 356. For each tdm, the total frequency was obtained, and Spearman
+rank-order correlation was computed. There are 36 correlation coefficients obtained. For one such iteration,
+they were 0.31, 0.35, 0.37, 0.44, 0.45, 0.49, 0.50, 0.50, 0.51, 0.52, 0.53, 0.51, 0.51, 0.52, 0.52, 0.52, 0.52, 0.52,
+0.53, 0.54, 0.54, 0.54, 0.54, 0.54, 0.54, 0.54, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, 0.52, and 0.52.
+
+Step 5: Steps one to four were repeated 300 times.
+
+Step 6: The R? value was computed, and it was averaged over the 300 iterations. The delta R? is the
+difference between two consecutive R?.
+
+The optimal number of texts is the point at which the R? stops increasing (delta R* approaches zero). It
+implies that the addition of the texts to the metadata is not significantly affecting the rank order of the total
+
+Page 5/15
+
+
+Page # 6
+frequency of the words.
+
+Since the correlations are computed over a random set of texts, the values obtained every time may not be
+the same. Hence, the steps were repeated 300 times to demonstrate the replicability of the trend of reliability.
+The OSF online data repository provides tabular output from steps one to four. Figure 1 and Fig. 2 show the
+plot for Hindi and Marathi, respectively.
+
+Estimating ZipfS And Heap'S Coefficients
+
+The two statistical laws about the distribution of word frequencies in natural language are Zipf's law and
+Heaps' law. According to Zipf's law, the frequency of a word is inversely proportional to its rank obtained
+from the word's frequency in the collection of texts. The Heaps' law states the relationship between the size
+of text collection in the form of the number of words and the number of unique words. Zipf's law intercept is
+12.49, and the coefficient is -0.89; for Heaps' law, the intercept is 2.48, and the coefficient is 0.73 for the
+Marathi dataset. Similarly, Zipf's law intercept is 13.05, and the coefficient is -0.98; for Heaps’ law, the
+intercept is 1.61, and the coefficient is 0.74 for the Hindi dataset. The figures for Zepf's law and Heaps’ law
+are in Supplementary Material 5.
+
+Ethics
+
+The work involved using textual data to build a 1-gram corpus of the said languages. Since human
+participants were not involved in creating the present dataset, research ethics clearance was not required.
+The following measures were observed in order to prevent the reconstruction of the original textual data and
+violation of copyright laws:
+
+1. Texts were scanned page-wise manner. All text files, PDF files, and image files of a page were deleted
+after OCR was completed and the term-document matrix was created.
+
+2. The metadata of the textual file list has not been put out in the public domain. Further, text-wise word
+counts are not provided. The data has been collapsed into decadal data for the public domain.
+
+3. The extracted n-gram was restricted to 1-gram.
+
+4. As per section 52a(i) of The Copyright Act of India (1957, p. 39), "a fair dealing with any work for the
+purpose of personal or private use, including research" is not considered an infringement of copyright.
+The OCR outputs and preparation of tdm were not made public. Hence, no part or information of the
+texts used is made publicly available to ensure ethical and fair use of the texts. The information
+available publicly is the total frequency of a term in a given decade.
+
+Applications Of The Dataset
+
+The presented dataset can have various applications in social science, linguistic science, data science, etc.
+Some broad applications are listed below.
+
+1. Trends of word usage in the two languages: Similar datasets with more extensive and finer metadata,
+mainly including newspapers, can help in understanding trends in social, cultural, and political change
+
+Page 6/15
+
+
+Page # 7
+over time.
+
+2. Research-based in psycholexical tradition (Goldberg, 1981): Psycholexical research requires estimates of
+word frequency in natural languages. The Word corpus can fulfil this requirement.
+
+3. Development of dictionaries that measure occurrences of various parts of speech or psychological
+phenomenon: Work on the same is underway by the present authors.
+
+4. Research in language development over the years.
+
+Figure 3 and Fig. 4 demonstrate two dataset applications. Figure 3 shows the frequency of four sports
+watched and played in India: cricket, wrestling, hockey, and football. The trend of popularity for these sports
+is also visible in the data. Usage of the word " " [cricket] increased in the 1970s and 1980s and has
+since then been increasing. India's first overseas Test series wins in West Indies & England (1971), first world
+cup victory (1983), and first mini-world cup victory (1985) coincides with the usage of the word ‘cricket’. The
+usage of" _" [hockey] declined since the last major victory of India in the 1980 Mosco Olympics. Since
+1928, Indian men's hockey recorded eight gold, one silver, and two bronze in the Olympics. The usage of
+
+" " [football] is seen to increase since the 2000s because of the recent interest in the sport. A downward
+
+trend is also noticed in" " [kushti], meaning wrestling, a traditional Indian sport.
+In Fig. 4, we see a consistent decline in the usage of the word" _" [patra], which means letter (handwritten
+and mailed letter). At the same time, usage frequency is rising forthe words" —"[photo],"__" [phone], and
+
+" [mobile]. A phone usually encompasses all calling devices, including wireless and landlines. Mobile,
+on the other hand, only refers to handheld devices. Hence, the overall usage of mobile is also lower than the
+phone.
+
+Web Interface: Indian Languages Word Corpus (Ilwc)
+
+We developed a web app named ‘Indian Languages Word Corpus (ILWC)' to browse and plot word
+frequencies over the decades (see Fig. 5), and it is available at
+https://indianlangwordcorp.shinyapps.io/ILWC/. 'RShiny' version 1.7.1 (Chang et al., 2022) and 'shinythemes'
+version 1.2.0 (Chang, 2021) libraries in R software were used for developing the app. The ILWC interactive
+web application has Hindi and Marathi Word Corpus tabs. In each of these languages, a user can enter up to
+ten words and compare the usage of those words over the decades from pre-1920 to the present decade. The
+ILWC presents a graphical output in the format of a plot. ILWC creates output using R libraries 'ggplot2'
+(Wickham, 2016), 'reshape2' (Wickham, 2007), and 'plotly' (Sievert, 2020). The web app and corresponding
+dataset will be updated and revised as more data is acquired.
+
+Data Availability Statement
+
+The datasets and other supplementary material generated for this study can be found on OSF:
+https://osf.io/vd3xz/
+
+Declarations
+
+Page 7/15
+
+
+Page # 8
+Ethical approval
+
+The work involved using textual data to build a 1-gram corpus of the said languages. Research ethics
+clearance was not required since human participants were not involved in creating the present dataset. We
+took the following measures to prevent the reconstruction of the original textual data and the violation of
+copyright laws:
+
+1. After page-wise scanning, OCR, and creating the term-document matrix, we deleted all text files, PDF
+files, and image files of a page.
+
+2. The metadata of the text file list is not made available in the public domain. Further, we did not provide a
+text-wise word count. The data were collapsed into decadal data.
+
+3. The extracted n-gram was restricted to 1-gram.
+
+4. As per section 52a(i) of The Copyright Act of India (1957, p. 39), “a fair dealing with any work for the
+purpose of personal or private use, including research” is not considered an infringement of copyright.
+The OCR outputs and preparation of tdm's were not made public. Hence, no part or information of the
+texts used is made publicly available to ensure ethical and fair use. The information available publicly is
+the total frequency of a term in a given decade.
+
+Acknowledgment
+
+The authors thank Apurv Chauhan, Brighton University, UK, for his comments on an earlier version.
+Consent for publication
+
+Consent for publication was not required because the research did not involve human participants.
+Author contribution
+
+Vivek Belhekar (VB) and Radhika Bhargava (RB) have contributed to the conceptualization and method of
+the paper. VB and RB contributed to the corpus creation of the data.
+
+The VB did material preparation and organization for the Marathi dataset.
+
+RB did material preparation and organization for the Hindi dataset.
+
+RB and VB prepared the R code.
+
+RB did the coding for the WebApp.
+
+VB and RB contributed to writing the first draft of the manuscript and reviewing the same.
+VB and RB read and approved the final manuscript.
+
+Funding
+
+Page 8/15
+
+
+Page # 9
+The authors have not received any funding or grant from any organization for the submitted work. No
+Competing interests exists since no funding involved.
+
+Conflict of Interest
+
+The authors have no known conflict of interest to disclose.
+
+Data availability statement
+
+We shall upload the datasets and other supplementary material for this study on OSF after publication/
+acceptance of the manuscript: https://osf.io/vd3xz/
+
+References
+
+1.
+
+10.
+
+Almeida, P,, Marques-Pita, M., & Gongalves-Sa, J. (2021). PTPARL-D: an annotated corpus of forty-four
+years of Portuguese parliamentary debates. Corpora, 16(3), 337-348.
+https://doi.org/10.3366/cor.2021.0226
+
+. Birmingham Blog Corpus (BBC). (2010). Compiled by the Research and Development Unit for English
+
+Studies at Birmingham City University. http://www.webcorp.org.uk/blogs.
+
+. BNC Consortium, The British National Corpus, XML Edition, 2007, Oxford Text Archive.
+
+http://hdl.handle.net/20.500.12024/2554
+
+. Caruana-Galizia, P. (2016). Politics and the German language: Testing Orwell's hypothesis using the
+
+Google N-Gram corpus. Digital Scholarship in the Humanities, 31(3), 441-456.
+https://doi.org/10.1093/Ilc/fqv011
+
+. Central Institute of Indian Languages (CIIL), Mysuru. Bharatavani Project. Retrieved November 30, 2022,
+
+from https://bharatavani.in/bharatavani/
+
+. Chang, W. (2021). shinythemes: Themes for Shiny. R package version 1.2.0. https://CRAN.R-
+
+project.org/package=shinythemes
+
+. Chang, W., Cheng, J., Allaire, J., Sievert, C., Schloerke, B., Xie, Y., Allen, J., McPherson, J., Dipert, A., Borges,
+
+B. (2021). shiny: Web Application Framework for R. R package version 1.7.1. https://CRAN.R-
+project.org/package=shiny
+
+. Davies, M. (2008). The Corpus of Contemporary American English (COCA): 560 million words, 1990-
+
+present. https://corpus.byu.edu/coca/
+
+. Du Bois, John W., Wallace L. Chafe, Charles Meyer, Sandra A. Thompson, Robert Englebretson, & Nii
+
+Martey. (2000-2005). Santa Barbara corpus of spoken American English, Parts 1-4. Philadelphia:
+Linguistic Data Consortium. https://www.linguistics.ucsb.edu/research/santa-barbara-corpus
+
+Feinerer, |. & Hornik, K. (2020). tm: Text Mining Package. R package version 0.7.8. https://CRAN.R-
+project.org/package=tm
+
+Page 9/15
+
+
+Page # 10
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
+
+21.
+
+22.
+
+23.
+
+24.
+
+25.
+
+26.
+
+Feinerer, |., Hornik, K., & Meyer, D. (2008). Text Mining Infrastructure in R. Journal of Statistical Software
+25(5), 1-54. https://doi.org/10.18637/jss.v025.i05
+
+Francis, W. & Kucera, H. (1979). Department of Linguistics, Brown University, Providence, Rhode Island,
+US. http://icame.uib.no/brown/bem.html
+
+Goldberg, L. R. (1981). Language and individual differences: The search for universals in personality
+lexicons. In L. Wheeler (Ed.), Review of personality and social psychology (Vol. 2, pp. 43-52). Sage.
+Greenbaum, S., & Nelson, G. (1996). The international corpus of English (ICE) project. World Englishes,
+15(1), 3-15. http://ice-corpora.net/ice/index.html
+
+Hodge, G., Sekine, K., Schembri, A., & Johnston, T. (2019). Comparing signers and speakers: building a
+directly comparable corpus of Auslan and Australian English. Corpora, 14(1), 63-76.
+https://doi.org/10.3366/cor.2019.0161
+
+Hotho, A., Niirnberger, A., & Paaf, G. (2005). A Brief Survey of Text Mining. Journal for Language
+Technology and Computational Linguistics, 20(1), 19-62. https://doi.org/10.21248/jlcl.20.2005.68
+Juola, P. (2013). Using the Google N-Gram corpus to measure cultural complexity. Literary and linguistic
+computing, 28(4), 668-675. https://doi.org/10.1093/Ilc/fqt017
+
+Knight, D., Adolphs, S., & Carter, R. (2014). CANELC: constructing an e-language corpus. Corpora, 9(1), 29-
+56. https://doi.org/10.3366/cor.2014.0050
+
+Koplenig, A. (2017). The impact of lacking metadata for the measurement of cultural and linguistic
+change using the Google Ngram data sets—Reconstructing the composition of the German corpus in
+times of WWII. Digital Scholarship in the Humanities, 32(1), 169-188.
+https://doi.org/10.1093/Ilc/fqv037
+
+Michel, J. B., Shen, Y. K., Aiden, A. P, Veres, A., Gray, M. K., Pickett, J. P, Hoiberg, D., Clancy, D., Norvig, P,
+Orwant, J., Pinker, S., Nowak, M. A., & Aiden, E. L. (2011). Quantitative analysis of culture using millions
+of digitized books. Science, 331(6014), 176-182. https://doi.org/10.1126/science.1199644
+Oberbichler, S., & Pfanzelter, E. (2021). Topic-specific corpus building: A step towards a representative
+newspaper corpus on the topic of return migration using text mining methods. Journal of Digital History,
+1(1), 74-98. https://doi.org/10.1515/jdh-2021-1003
+
+Ooms, J. (2022). pdftools: Text Extraction, Rendering, and Converting of PDF Documents. R package
+version 3.3.0. https://CRAN.R-project.org/package=pdftools
+
+Ooms, J. (2022). tesseract: Open Source OCR Engine. R package version 5.1.0. https://CRAN.R-
+project.org/package=tesseract
+
+Pechenick, E. A., Danforth, C. M., & Dodds, P. S. (2015). Characterizing the Google Books corpus: Strong
+limits to inferences of socio-cultural and linguistic evolution. PloS one, 10(10).
+https://doi.org/10.48550/arXiv.1501.00960
+
+Pettit, M. (2016). Historical time in the age of big data: Cultural psychology, historical change, and the
+Google Books Ngram Viewer. History of Psychology, 19(2), 141. https://doi.org/10.1037/hop0000023
+R Core Team (2022). R: A language and environment for statistical computing. R Foundation for
+Statistical Computing, Vienna, Austria. URL: https://www.R-project.org
+
+Page 10/15
+
+
+Page # 11
+27.
+
+28.
+
+29.
+
+30.
+
+31.
+
+32.
+
+33.
+
+34.
+
+35.
+
+36.
+
+37.
+
+38.
+
+RStudio Team (2022). RStudio: Integrated Development Environment for R. RStudio, PBC, Boston, MA
+URL: http://www.rstudio.com
+
+Shastri, S. V. (1986). Kolhapur Corpus Manual. Retrieved December 1, 2022, from,
+http://korpus.uib.no/icame/manuals/KOLHAPUR/INDEX.HTM#materia
+
+Sievert, C. (2020). Interactive Web-Based Data Visualization with R, Plotly, and shiny. Chapman and
+Hall/CRC Florida, 2020. https://cran.r-project.org/web/packages/plotly/index.html
+
+Singh, K., & Nakkeerar, R. (2022). Language Atlas of India 2011.
+https://censusindia.gov.in/nada/index.php/catalog/42561/download/46187/Language_Atlas_2011.pdf
+The Copyright Act. (1957). Act No. 14 of 1957. https://copyright.gov.in/documents/copyrightrules1 957
+.pdf
+
+Werner, V. (2012). Love is all around: A corpus-based study of pop lyrics. Corpora, 7(1), 19-50.
+https://doi.org/10.3366/cor.2012.0016
+
+Wickham, H. (2007). Reshaping Data with the reshape Package. Journal of Statistical Software, 21(12),
+1-20. https://doi.org/10.18637/jss.v021.i12
+
+Wickham, H. (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York.
+https://doi.org/10.1007/978-0-387-98141-3
+
+Younes, N., & Reips, U. D. (2018). The changing psychology of culture in German-speaking countries: A
+Google Ngram study. International Journal of Psychology, 53, 53-62. https://doi.org/10.1002/ijop.12428
+Younes, N., & Reips, U. D. (2019). Guideline for improving the reliability of Google Ngram studies:
+Evidence from religious terms. PloS one, 14(3), e€0213554.
+https://doi.org/10.1371/journal.pone.0213554
+
+Zeng, R., & Greenfield, P. M. (2015). Cultural evolution over the last 40 years in China: Using the Google
+Ngram Viewer to study implications of social and political change for cultural values. International
+Journal of Psychology, 50(1), 47-55. https://doi.org/10.1002/ijop.12125
+
+Zizka, J., Dafena, F., & Svoboda, A. (2019). Text mining with machine learning: principles and techniques.
+FL: CRC Press. https://doi.org/10.1201/9780429469275
+
+Figures
+
+Page 11/15
+
+
+Page # 12
+Key
+— Average R? — Delta Average R?
+
+ 
+
+°
+=
+
+Spearman rank order correlation
+
+°
+iy
+
+200
+Number of documents per set
+
+ 
+
+ 
+
+ 
+
+Figure 1
+
+Impact of Number of Documents in each set on Spearman Rank Order Correlation for Hindi WordCorp.
+Colored dotted lines are 300 iterations.
+
+Page 12/15
+
+
+Page # 13
+ 
+
+Key
+— Average R? — Delta Average R?
+
+°
+=
+
+ 
+
+°
+&
+
+‘Spearman rank order correlation
+
+ 
+
+00
+
+200
+Number of documents per set
+
+ 
+
+ 
+
+ 
+
+Figure 2
+
+Impact of Number of Documents in each set on Spearman Rank Order Correlation for Marathi WordCorp.
+Colored dotted lines are 300 iterations.
+
+ 
+
+ 
+
+ 
+
+ 
+
+Hindi_Word
+4e-05 = edt - Wrestling
+g = fibbe - Cricket
+2 3e-05 — yeaia - Football
+eo
+g en git = - Hockey
+7
+a
+]
+2
+Bie-os
+0e+00
+o o 2 S S o o o $ S o
+Ss Sf SF FS FSF SF LK KF LK L$ LS
+oS we we we we we & we ee we we we
+= Decades
+Figure 3
+
+Page 13/15
+
+
+Page # 14
+Demonstrative Application of Hindi Word Corp
+
+ 
+
+ 
+
+ 
+
+Marathi_Word
+8e-04
+“=i - Letter
+a = wrl_ - Photo
+ov
+Q 6e-04 = w= - Phone
+ov
+S ——= tharga_ - Mobile
+2
+i 4e-04
+Zo
+£
+wo
+=
+Z 2e-04
+0e+00
+o Oo AS) S S S oO AS © o S Oo
+5 6 8 os s iS si S$ of s§ s $$
+£ F SF § © §& © § @€ EF ES PS
+se & & & & & & & & & &
+. Decades
+Figure 4
+
+Demonstrative Application of Marathi Word Corp
+
+Page 14/15
+
+ 
+
+
+Page # 15
+ 
+
+ 
+ 
+
+& indianlangwordcorp.shinyapps..io
+
+ 
+ 
+     
+
+Indian Languages Word Corpus (ILWC) = HindiWordCorp — MarathiWordCorp _—CollaboratewithUs | Whoare we?
+
+The research paper for this project is currently under review with a journal. Hence, identity of the investigator(s) has been masked. The app will be updated as soon as the paper is accepted/ published with a journal
+
+. Your Word Plot
+Enter upto 10 Hindi words in_
+Devnagri scri T aaa Mond
+® 10 grea aes Fra Stet pels
+Enter a Hindi word in Devnagri script (for e.g. yt) anak — ee
+g2-0
+g — ye
+Enter a Hindi word in Devnagri script (for e.g. 74a) & —
+3
+seit % feos — tm
+3 — ats
+Enter a Hindi word in Devnagri script (for e.g.:faarA) —
+for 0e+00 — Ra
+Enter a Hindi word in Devnagri script (for e.g.:"f0ra) o ; * . . oO, * F J ;
+ator . Decades
+
+Cite as: 1000. and 1000. (2022). Word Count Data Corpus for Hindi and Marathi. Unpublished Manuscript.
+Enter a Hindi word in Devnagri script (for e.g :3faera)
+
+afore
+
+Enter a Hindi word in Devnagri script (for e.g. 7araenre)
+
+FARA
+
+Enter a Hindi word in Devnagri script (for e.g.:420)
+ort
+
+ 
+
+ 
+
+ 
+
+Figure 5
+
+Screenshot of Web-app "Indian Languages Word Corpus (ILWC)"
+
+Supplementary Files
+
+This is a list of supplementary files associated with this preprint. Click to download.
+
+¢ supplementarymaterialFinal.docx
+
+Page 15/15
+
+
